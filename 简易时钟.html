@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#box{width:300px;height:300px;border-radius:50%;border:2px solid black;position:relative;margin:100px auto;}
+#box #hou{width:8px;height:80px;border-radius:50% 50% 0 0;position:absolute;background:black;top:70px;left:146px;-webkit-transform-origin:center 80px;-webkit-transform:rotate(0deg);}
+#box #min{width:6px;height:100px;border-radius:50% 50% 0 0;position:absolute;background:black;top:50px;left:147px;-webkit-transform-origin:center 100px;-webkit-transform:rotate(0deg);}
+#box #sec{width:4px;height:120px;border-radius:50% 50% 0 0;position:absolute;background:red;top:30px;left:148px;-webkit-transform-origin:center 120px;-webkit-transform:rotate(0deg);}
+#box span{width:4px;height:8px;position:absolute;background:#000;display:block;left:50%;margin-left:-2px;top:0;-webkit-transform-origin:center 150px;}
+#box span.on{width:6px;margin-left:-3px;height:15px;}
+#box span strong{position:absolute;top:18px;width:30px;left:50%;margin-left:-15px;text-align:center;}
+</style>
+</head>
+
+<body>
+<div id="box">
+	<div id="hou"></div>
+    <div id="min"></div>
+    <div id="sec"></div>
+</div>
+<script>
+window.onload=function(){
+	var oBox=document.querySelector('#box');
+	var oHou=document.querySelector('#hou');
+	var oMin=document.querySelector('#min');
+	var oSec=document.querySelector('#sec');
+	
+	for(var i=0;i<60;i++){
+		var oSpan=document.createElement('span');
+		oSpan.style.webkitTransform='rotate('+i*6+'deg)';
+		if(i%5==0){
+			oSpan.className='on';
+			if(i/5==0){
+				oSpan.innerHTML='<strong>'+12+'<\/strong>';
+			}else{
+				oSpan.innerHTML='<strong>'+i/5+'<\/strong>';
+			}
+			var oStrong = oSpan.children[0];
+			oStrong.style.WebkitTransform='rotate('+-i*6+'deg)';
+		}
+		oBox.appendChild(oSpan);
+	}
+	
+	function time(){
+		var oDate=new Date();
+		var h=oDate.getHours();
+		var m=oDate.getMinutes();
+		var s=oDate.getSeconds();
+		
+		oHou.style.webkitTransform='rotate('+(h*30+(m/60*30))+'deg)';
+		oMin.style.webkitTransform='rotate('+(m*6+(s/60*6))+'deg)';
+		oSec.style.webkitTransform='rotate('+s*6+'deg)';
+	}
+	
+	time();
+	
+	setInterval(time,30);
+	
+	
+};
+</script>
+</body>
+</html>
